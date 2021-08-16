@@ -1,5 +1,5 @@
 variable "region" {
-  default = "us-west-2"
+  default = "ca-central-1"
 }
 
 variable "map_accounts" {
@@ -22,8 +22,8 @@ variable "map_roles" {
 
   default = [
     {
-      rolearn  = "arn:aws:iam::66666666666:role/role1"
-      username = "role1"
+      rolearn  = "arn:aws:iam::663752990056:role/jenkins"
+      username = "jenkins"
       groups   = ["system:masters"]
     },
   ]
@@ -39,7 +39,7 @@ variable "map_users" {
 
   default = [
     {
-      userarn  = "arn:aws:iam::66666666666:user/user1"
+      userarn  = "arn:aws:iam::663752990056:role/jenkins"
       username = "user1"
       groups   = ["system:masters"]
     },

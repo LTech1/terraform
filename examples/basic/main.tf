@@ -2,7 +2,7 @@ provider "aws" {
   region = var.region
 }
 
-data "aws_eks_cluster" "cluster" {
+data "aws_eks_cluster" "mycluster" {
   name = module.eks.cluster_id
 }
 
@@ -10,18 +10,18 @@ data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
 }
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-  load_config_file       = false
-}
+#provider "kubernetes" {
+ # host                   = data.aws_eks_cluster.cluster.endpoint
+  #cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  #token                  = data.aws_eks_cluster_auth.cluster.token
+  #load_config_file       = false
+#}
 
 data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "test-eks-${random_string.suffix.result}"
+  cluster_name = "ltech-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -80,7 +80,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 2.47"
 
-  name                 = "test-vpc"
+  name                 = "ltech"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
